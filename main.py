@@ -2,6 +2,12 @@ import pyautogui, os, sys, time
 
 os.chdir(os.path.dirname(sys.argv[0]))
 
+if not os.path.isfile('button.png'):
+    print('button.png file is not in the same directory as script.')
+    print('Press enter to exit.')
+    input('>')
+    sys.exit()
+
 sleep_timer = 0
 click_counter = 0
 
