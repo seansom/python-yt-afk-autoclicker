@@ -1,10 +1,9 @@
-
 import pyautogui, os, sys, time
 
 os.chdir(os.path.dirname(sys.argv[0]))
 
-if not os.path.isfile('button.png'):
-    print('button.png file is not in the same directory as script.')
+if not (os.path.isfile('button.png') and os.path.isfile('banner.png')):
+    print('button.png or banner.png file is not in the same directory as script.')
     print('Press enter to exit.')
     input('>')
     sys.exit()
@@ -22,7 +21,15 @@ while True:
         pyautogui.press('volumedown')
         pyautogui.press('volumeup')
     
-    # search for Yes button to continue watching
+    
+    # move to banenr location in case button is being obscured by mouse cursor
+    banner_location = pyautogui.locateCenterOnScreen('banner.png', confidence= 0.9)
+
+    if banner_location is not None:
+        pyautogui.moveTo(banner_location)
+
+
+    # search and click Yes button to continue watching
     button_location = pyautogui.locateCenterOnScreen('button.png', confidence= 0.9)
 
     if button_location is not None:
@@ -41,7 +48,3 @@ while True:
     sleep_timer += 1
     time.sleep(1)
         
-
-
-
-    
